@@ -1,14 +1,22 @@
 import { Component, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,CommonModule, RouterModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
+  constructor(public router: Router) {}
+  
+  get isDashboard(): boolean {
+    return this.router.url === '/dashboard';
+  }
 
-  constructor(public router: Router) { }
-  protected readonly title = signal('Plugify');
+  get isNba(): boolean {
+    return this.router.url.startsWith('/nba');
+  }
 }

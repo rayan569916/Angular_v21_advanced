@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Nba } from '../../services/nba';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nba.dashboard.component',
@@ -9,15 +9,17 @@ import { Nba } from '../../services/nba';
   styleUrl: './nba.dashboard.component.css',
 })
 export class NbaDashboardComponent {
-  playerDetails = [];
-  constructor(private nbaService: Nba){}
+  constructor(private router: Router){}
 
   ngOnInit(){
     // this.getPlayerDetails()
   }
-  getPlayerDetails(){
-    this.nbaService.getPlayerDetails().subscribe(res=>{
-      this.playerDetails=res.data;
-    })
+
+  loadNbaPlayers(){
+    this.router.navigate(['/nba/nbaPlayerDetail']);
+  }
+
+  loadNbaTeams(){
+    this.router.navigate(['/nba/nbaTeamDetail']);
   }
 }
