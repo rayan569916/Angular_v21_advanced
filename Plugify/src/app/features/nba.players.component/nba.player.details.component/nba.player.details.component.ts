@@ -1,4 +1,4 @@
-import { Component,OnInit, computed, signal} from '@angular/core';
+import { Component,OnInit, computed, signal, effect} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Nba } from '../../../services/nba';
 import { player,player_detail,team } from '../../interface';
@@ -16,12 +16,12 @@ export class NbaPlayerDetailsComponent implements OnInit{
   players=signal<player[]>(players);
   playerDetail=signal<player_detail[]>(player_details as player_detail[]);
   teamName:any="";
+  playerSummary=signal<string>("")
 
   constructor(private nbaService: Nba, private activeRoute:ActivatedRoute) {}
 
   ngOnInit(){
-    this.getPlayerSummaryFromWikipedia();
-    this.getPlayerMediaListFromWikipedia();
+    
   }
 
   selectedPlayer= computed<player|null>(()=>{
@@ -37,16 +37,34 @@ export class NbaPlayerDetailsComponent implements OnInit{
     return this.playerDetail().find(i=>i.player_name==playerFullName) ?? null;
   })
 
+  getPlayerSummaryEffect=effect(()=>{
+    const playerName=this.playerExtraDetails()?.player_name.replaceAll(' ',"_") ?? "";
+    this.nbaService.getPlayerSummaryFromWikipedia(playerName).subscribe(res=>{
+      this.playerSummary.set(res.extract);
+    });   
+  })
 
-  private getPlayerSummaryFromWikipedia(): any {
-    this.nbaService.getPlayerSummaryFromWikipedia("LeBron_James").subscribe(res=>{
-      console.log(res.extract)
-    });
-  }
+  getPlayerMediaListEffect=effect(()=>{
+    const playerName=this.playerExtraDetails()?.player_name.replaceAll(' ',"_") ?? "";
+    this.nbaService.getPlayerMediaListFromWikipedia(playerName).subscribe(res=>{
+    }); 
+  })
+
+    //   {
+    //   title: 'File:Steven_Adams_(51813714196)_(cropped).jpg',
+    //   leadImage: true,
+    //   section_id: 0,
+    //   type: 'image',
+    //   showInGallery: true,
+    //   srcset: [Array]
+    // }
+
+
 
   private getPlayerMediaListFromWikipedia(): any { 
-    this.nbaService.getPlayerMediaListFromWikipedia("LeBron_James").subscribe(res=>{
-      console.log(res.items)
+    const playerName=this.playerExtraDetails()?.player_name.replaceAll(' ',"_") ?? "";
+    this.nbaService.getPlayerMediaListFromWikipedia(playerName).subscribe(res=>{
+      console.log(res.items);
     });
   }
 
@@ -83,13 +101,13 @@ export class NbaPlayerDetailsComponent implements OnInit{
 
     gpDashOffset = computed(() => {
       const gp=this.playerExtraDetails()?.gp ?? 0;
-      const percentage=gp/82*100;
-      return this.circumference() * (1 - percentage / 100);
+      const percent=gp/82*100;
+      return this.circumference() * (1 - percent / 100);
     });
 
     pntDashOffset = computed(() => {
       const pts=this.playerExtraDetails()?.pts ?? 0;
-      const percent=(pts/50.4)*100;
+      const percent=(pts/38)*100;
       return this.circumference() * (1 - percent / 100);
     });
 
@@ -110,6 +128,51 @@ export class NbaPlayerDetailsComponent implements OnInit{
       const percent=net_rating/17.4*100;
       return this.circumference() * (1 - percent / 100);
     });
+
+    styleStrokeColourPrimary(percentage:string){
+      if (percentage=='gpDashOffset'){
+      const gp=this.playerExtraDetails()?.gp ?? 0;
+      const percent=gp/82*100;
+        return this.styleStrokeColourSecondary(percent);
+      }
+      else if (percentage=='pntDashOffset'){
+      const pts=this.playerExtraDetails()?.pts ?? 0;
+      const percent=(pts/38)*100;
+        return this.styleStrokeColourSecondary(percent);
+      }
+      else if (percentage=='rebDashOffset'){
+      const reb=this.playerExtraDetails()?.reb ?? 0;
+      const percent=reb/15*100;
+        return this.styleStrokeColourSecondary(percent);
+      }
+      else if (percentage=='astDashOffset'){
+      const ast=this.playerExtraDetails()?.ast ?? 0;
+      const percent=ast/14.5*100;
+        return this.styleStrokeColourSecondary(percent);
+      }
+      else if (percentage=='netDashOffset'){
+      const net_rating=this.playerExtraDetails()?.net_rating ?? 0;
+      const percent=net_rating/17.4*100;
+        return this.styleStrokeColourSecondary(percent);
+      }
+      return "stroke: #6f5ef9; color: #6f5ef9";
+    }
+
+    styleStrokeColourSecondary(percent:number){
+      if (percent<=25){
+        return "stroke: #bdd7e7; color: #bdd7e7;";
+      }
+      else if (percent<=50 && percent>25){
+        return "stroke: #6baed6; color: #6baed6;";
+      }
+      else if (percent<=75 && percent>50){
+        return "stroke: #0593ffff; color: #0593ffff;";
+      }
+      else if (percent<=100 && percent>75){
+        return "stroke: #3182bd; color: #3182bd;";
+      }
+      return "stroke: #08519c; color: #08519c;";
+    }
 
   // private getPlayerMobileSectionsFromWikipedia(): any {
   //   this.nbaService.getPlayerMobileSectionsFromWikipedia("LeBron_James").subscribe(html=>{

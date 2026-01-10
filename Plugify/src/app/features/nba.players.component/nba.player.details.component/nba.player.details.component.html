@@ -1,9 +1,9 @@
-<div class="container-fluid flex-grow-1 overflow-hidden p-0">
+<div class="container-fluid flex-grow-1 overflow-hidden p-0" style="background-color: rgba(153, 208, 249, 0.25);">
     <div class="container">
         <div class="row gap-1 mt-5 vh-100 d-flex justify-content-evenly" style="width: 100% !important;">
-            <div class="col-md-3" style="height: 75% !important; width: 30% !important;">
-                <div class="card" style="height: 100% !important;">
-                    <div class="card-img-top p-4 rounded-top-4 bg-light">
+            <div class="col-md-3" style="height: 75% !important; width: 30% !important; overflow-y: auto;">
+                <div class="card rounded-4" style="height: 100% !important; overflow-y: auto;">
+                    <div class="card-img-top rounded-top-4 bg-light d-flex justify-content-center">
                         <img [src]="getPlayerImage(selectedPlayer())" />
                     </div>
                     <div class="card-body px-4">
@@ -12,185 +12,199 @@
                         </div>
                         <div class="d-flex justify-content-center">
                             <span class="d-flex"><img [src]="getTeamImage(playerExtraDetails()?.team_abbreviation)"
-                                    [class]="'flag flag-' + this.teamName" style="width: 2rem" /></span>
+                                    [class]="" style="width: 2rem" /></span>
                             <div class="d-flex align-items-center pt-1" style="color: black;">
-                                <h6>{{this.teamName}}</h6>
+                                <p>{{this.teamName}}</p>
                             </div>
                         </div>
-                        <div class="row gap-1 d-flex justify-content-evenly">
-                            <div class="col-md-5 d-flex align-items-center card border-1 shadow-lg"
-                                style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
-                                                                                                            background-color: rgba(255, 255, 255, 0.25);">
-                                <div>Age</div>
-                                <div>{{playerExtraDetails()?.age}}</div>
-                            </div>
-                            <div class="col-md-5 d-flex align-items-center card border-1 shadow-lg"
-                                style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
-                                                                                                            background-color: rgba(255, 255, 255, 0.25);">
-                                <div>Draft Year</div>
-                                <div>{{playerExtraDetails()?.draft_year}}</div>
-                            </div>
-                        </div>
-                        <div class="row gap-1 d-flex justify-content-evenly mt-2">
-                            <div class="col-md-5 d-flex align-items-center card border-1 shadow-lg"
-                                style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
-                                                                                                            background-color: rgba(255, 255, 255, 0.25);">
-                                <div>Height</div>
-                                <div>{{playerExtraDetails()?.player_height}}</div>
-                            </div>
-                            <div class="col-md-5 d-flex align-items-center card border-1 shadow-lg"
-                                style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
-                                                                                                            background-color: rgba(255, 255, 255, 0.25);">
-                                <div>Weight</div>
-                                <div>{{playerExtraDetails()?.player_weight}}</div>
-                            </div>
-                        </div>
-                        <div class="row gap-1 d-flex justify-content-evenly mt-2">
-                            <div class="col-md-5 d-flex align-items-center card border-1 shadow-lg"
-                                style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
-                                                                                                            background-color: rgba(255, 255, 255, 0.25);">
-                                <div>Draft Round</div>
-                                <div>{{playerExtraDetails()?.draft_round}}</div>
-                            </div>
-                            <div class="col-md-5 d-flex align-items-center card border-1 shadow-lg"
-                                style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
-                                                                                                            background-color: rgba(255, 255, 255, 0.25);">
-                                <div>Draft No.</div>
-                                <div>{{playerExtraDetails()?.draft_number}}</div>
-                            </div>
-                        </div>
-                        <div class="row gap-1 d-flex justify-content-evenly mt-2">
-                            <div class="col-md-5 d-flex align-items-center card border-1 shadow-lg"
-                                style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
-                                                                                                            background-color: rgba(255, 255, 255, 0.25);">
-                                <div>College</div>
-                                <div>{{playerExtraDetails()?.college}}</div>
-                            </div>
-                            <div class="col-md-5 d-flex align-items-center card border-1 shadow-lg"
-                                style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
-                                                                                                            background-color: rgba(255, 255, 255, 0.25);">
-                                <div>Country</div>
-                                <div>{{playerExtraDetails()?.country}}</div>
-                            </div>
+                        <div class="border-1 shadow-lg p-2 rounded-4"
+                            style="box-shadow: 0 1rem 3rem rgba(1, 141, 248, 0.25) !important;
+                            background-color: rgba(153, 208, 249, 0.25);
+                            ">
+                            <h5>Summary</h5>
+                            <div style="overflow-y: auto;"><h6>{{this.playerSummary()}}</h6></div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-8" style="height: 75% !important;">
-                <div class="card" style="height: 100% !important;">
-                    <div class="row d-flex justify-content-evenly mt-5">
+                <div class="card rounded-4" style="height: 100% !important;">
+                    <div class="card-title mx-2 mt-2"><h5 class="fw-semibold">Status based on {{playerExtraDetails()?.season}} season</h5></div>
+                    <div class="row d-flex justify-content-evenly mt-2">
                         <div class="col-md-2">
-                            <div class="d-flex align-items-center card border-1 shadow-lg" style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
+                            <div class="d-flex align-items-center card border-1 shadow-lg" style="box-shadow: 0 1rem 3rem rgba(1, 141, 248, 0.25) !important;
                                     background-color: rgba(255, 255, 255, 0.25);">
                                 <div class="me-2">Games</div>
-                                <div class="progress-container" [style.width.px]="size" [style.height.px]="size">
+                                <div class="progress-container m-2" [style.width.px]="size" [style.height.px]="size">
                                     <svg [attr.width]="size" [attr.height]="size" class="progress-svg">
                                         <!-- Background circle -->
                                         <circle class="progress-bg" [attr.cx]="size / 2" [attr.cy]="size / 2"
                                             [attr.r]="radius()" [attr.stroke-width]="strokeWidth" fill="none" />
 
                                         <!-- Animated progress -->
-                                        <circle class="progress-bar" style="stroke: #18f608;" [attr.cx]="size / 2" [attr.cy]="size / 2"
-                                            [attr.r]="radius()" [attr.stroke-width]="strokeWidth" fill="none"
+                                        <circle class="progress-bar" [style]="styleStrokeColourPrimary('gpDashOffset')"
+                                            [attr.cx]="size / 2" [attr.cy]="size / 2" [attr.r]="radius()"
+                                            [attr.stroke-width]="strokeWidth" fill="none"
                                             [attr.stroke-dasharray]="circumference()"
                                             [attr.stroke-dashoffset]="gpDashOffset()" />
                                     </svg>
 
-                                    <div class="progress-text">
+                                    <div class="progress-text" [style]="styleStrokeColourPrimary('gpDashOffset')">
                                         <span>{{playerExtraDetails()?.gp}}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div class="d-flex align-items-center card border-1 shadow-lg" style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
+                            <div class="d-flex align-items-center card border-1 shadow-lg" style="box-shadow: 0 1rem 3rem rgba(1, 141, 248, 0.25) !important;
                                     background-color: rgba(255, 255, 255, 0.25);">
                                 <div class="me-2">Points</div>
-                                <div class="progress-container" [style.width.px]="size" [style.height.px]="size">
+                                <div class="progress-container m-2" [style.width.px]="size" [style.height.px]="size">
                                     <svg [attr.width]="size" [attr.height]="size" class="progress-svg">
                                         <!-- Background circle -->
                                         <circle class="progress-bg" [attr.cx]="size / 2" [attr.cy]="size / 2"
                                             [attr.r]="radius()" [attr.stroke-width]="strokeWidth" fill="none" />
 
                                         <!-- Animated progress -->
-                                        <circle class="progress-bar" style="stroke: #6f5ef9;" [attr.cx]="size / 2" [attr.cy]="size / 2"
-                                            [attr.r]="radius()" [attr.stroke-width]="strokeWidth" fill="none"
+                                        <circle class="progress-bar" [style]="styleStrokeColourPrimary('pntDashOffset')"
+                                            [attr.cx]="size / 2" [attr.cy]="size / 2" [attr.r]="radius()"
+                                            [attr.stroke-width]="strokeWidth" fill="none"
                                             [attr.stroke-dasharray]="circumference()"
                                             [attr.stroke-dashoffset]="pntDashOffset()" />
                                     </svg>
 
-                                    <div class="progress-text">
+                                    <div class="progress-text" [style]="styleStrokeColourPrimary('pntDashOffset')">
                                         <span>{{playerExtraDetails()?.pts}}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div class="d-flex align-items-center card border-1 shadow-lg" style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
+                            <div class="d-flex align-items-center card border-1 shadow-lg" style="box-shadow: 0 1rem 3rem rgba(1, 141, 248, 0.25) !important;
                                     background-color: rgba(255, 255, 255, 0.25);">
                                 <div class="me-2">Rebound</div>
-                                <div class="progress-container" [style.width.px]="size" [style.height.px]="size">
+                                <div class="progress-container m-2" [style.width.px]="size" [style.height.px]="size">
                                     <svg [attr.width]="size" [attr.height]="size" class="progress-svg">
                                         <!-- Background circle -->
                                         <circle class="progress-bg" [attr.cx]="size / 2" [attr.cy]="size / 2"
                                             [attr.r]="radius()" [attr.stroke-width]="strokeWidth" fill="none" />
 
                                         <!-- Animated progress -->
-                                        <circle class="progress-bar" [attr.cx]="size / 2" [attr.cy]="size / 2"
-                                            [attr.r]="radius()" [attr.stroke-width]="strokeWidth" fill="none"
+                                        <circle class="progress-bar" [style]="styleStrokeColourPrimary('rebDashOffset')"
+                                            [attr.cx]="size / 2" [attr.cy]="size / 2" [attr.r]="radius()"
+                                            [attr.stroke-width]="strokeWidth" fill="none"
                                             [attr.stroke-dasharray]="circumference()"
                                             [attr.stroke-dashoffset]="rebDashOffset()" />
                                     </svg>
 
-                                    <div class="progress-text">
+                                    <div class="progress-text" [style]="styleStrokeColourPrimary('rebDashOffset')">
                                         <span>{{playerExtraDetails()?.reb}}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div class="d-flex align-items-center card border-1 shadow-lg" style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
+                            <div class="d-flex align-items-center card border-1 shadow-lg" style="box-shadow: 0 1rem 3rem rgba(1, 141, 248, 0.25) !important;
                                     background-color: rgba(255, 255, 255, 0.25);">
                                 <div class="me-2">Assist</div>
-                                <div class="progress-container" [style.width.px]="size" [style.height.px]="size">
+                                <div class="progress-container m-2" [style.width.px]="size" [style.height.px]="size">
                                     <svg [attr.width]="size" [attr.height]="size" class="progress-svg">
                                         <!-- Background circle -->
                                         <circle class="progress-bg" [attr.cx]="size / 2" [attr.cy]="size / 2"
                                             [attr.r]="radius()" [attr.stroke-width]="strokeWidth" fill="none" />
 
                                         <!-- Animated progress -->
-                                        <circle class="progress-bar" [attr.cx]="size / 2" [attr.cy]="size / 2"
-                                            [attr.r]="radius()" [attr.stroke-width]="strokeWidth" fill="none"
+                                        <circle class="progress-bar" [style]="styleStrokeColourPrimary('astDashOffset')"
+                                            [attr.cx]="size / 2" [attr.cy]="size / 2" [attr.r]="radius()"
+                                            [attr.stroke-width]="strokeWidth" fill="none"
                                             [attr.stroke-dasharray]="circumference()"
                                             [attr.stroke-dashoffset]="astDashOffset()" />
                                     </svg>
 
-                                    <div class="progress-text">
+                                    <div class="progress-text" [style]="styleStrokeColourPrimary('astDashOffset')">
                                         <span>{{playerExtraDetails()?.ast}}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div class="d-flex align-items-center card border-1 shadow-lg" style="box-shadow: 0 1rem 3rem rgba(75, 5, 194, 0.25) !important;
+                            <div class="d-flex align-items-center card border-1 shadow-lg" style="box-shadow: 0 1rem 3rem rgba(1, 141, 248, 0.25) !important;
                                     background-color: rgba(255, 255, 255, 0.25);">
                                 <div class="me-2">Net Rating</div>
-                                <div class="progress-container" [style.width.px]="size" [style.height.px]="size">
+                                <div class="progress-container m-2" [style.width.px]="size" [style.height.px]="size">
                                     <svg [attr.width]="size" [attr.height]="size" class="progress-svg">
                                         <!-- Background circle -->
                                         <circle class="progress-bg" [attr.cx]="size / 2" [attr.cy]="size / 2"
                                             [attr.r]="radius()" [attr.stroke-width]="strokeWidth" fill="none" />
 
                                         <!-- Animated progress -->
-                                        <circle class="progress-bar" [attr.cx]="size / 2" [attr.cy]="size / 2"
-                                            [attr.r]="radius()" [attr.stroke-width]="strokeWidth" fill="none"
+                                        <circle class="progress-bar" [style]="styleStrokeColourPrimary('netDashOffset')"
+                                            [attr.cx]="size / 2" [attr.cy]="size / 2" [attr.r]="radius()"
+                                            [attr.stroke-width]="strokeWidth" fill="none"
                                             [attr.stroke-dasharray]="circumference()"
                                             [attr.stroke-dashoffset]="netDashOffset()" />
                                     </svg>
 
-                                    <div class="progress-text">
+                                    <div class="progress-text" [style]="styleStrokeColourPrimary('netDashOffset')">
                                         <span>{{playerExtraDetails()?.net_rating}}</span>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title mx-2 mt-2"><h5 class="fw-semibold">Other Details</h5></div>
+                        <div class="rounded-4 p-4 shadow-lg" style="
+                                    box-shadow: 0 1rem 3rem rgba(1, 141, 248, 0.25) !important;
+                                    background-color: rgba(153, 208, 249, 0.25);
+                                    ">
+                            <!-- Row 1 -->
+                            <div class="row g-3">
+                                <div class="col-md-4 d-flex align-items-center gap-2">
+                                    <span class="fw-semibold">Age:</span>
+                                    <span>{{ playerExtraDetails()?.age }}</span>
+                                </div>
+
+                                <div class="col-md-4 d-flex align-items-center gap-2">
+                                    <span class="fw-semibold">Height:</span>
+                                    <span>{{ playerExtraDetails()?.player_height }}</span>
+                                </div>
+
+                                <div class="col-md-4 d-flex align-items-center gap-2">
+                                    <span class="fw-semibold">Weight:</span>
+                                    <span>{{ playerExtraDetails()?.player_weight }}</span>
+                                </div>
+                            </div>
+
+                            <!-- Row 2 -->
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-4 d-flex align-items-center gap-2">
+                                    <span class="fw-semibold">Draft Year:</span>
+                                    <span>{{ playerExtraDetails()?.draft_year }}</span>
+                                </div>
+
+                                <div class="col-md-4 d-flex align-items-center gap-2">
+                                    <span class="fw-semibold">Draft Round:</span>
+                                    <span>{{ playerExtraDetails()?.draft_round }}</span>
+                                </div>
+
+                                <div class="col-md-4 d-flex align-items-center gap-2">
+                                    <span class="fw-semibold">Draft Number:</span>
+                                    <span>{{ playerExtraDetails()?.draft_number }}</span>
+                                </div>
+                            </div>
+
+                            <!-- Row 3 -->
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-4 d-flex align-items-center gap-2">
+                                    <span class="fw-semibold">Country:</span>
+                                    <span>{{ playerExtraDetails()?.country }}</span>
+                                </div>
+
+                                <div class="col-md-8 d-flex align-items-center gap-2">
+                                    <span class="fw-semibold">College:</span>
+                                    <span>{{ playerExtraDetails()?.college }}</span>
                                 </div>
                             </div>
                         </div>
@@ -199,3 +213,4 @@
             </div>
         </div>
     </div>
+</div>
