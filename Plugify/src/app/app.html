@@ -9,8 +9,15 @@
 
   <div class="collapse navbar-collapse" id="mainNav">
     <ul class="navbar-nav ms-auto gap-3">
-
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isLogin">
+        <a class="nav-link" routerLink="/login" routerLinkActive="activate" 
+        [routerLinkActiveOptions]="{ exact: true }">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="isLogin">
+        <a class="nav-link" routerLink="/signUp" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">Signup</a>
+      </li>
+      <li class="nav-item" *ngIf="!isLogin">
         <a class="nav-link" routerLink="/dashboard" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
           Dashboard

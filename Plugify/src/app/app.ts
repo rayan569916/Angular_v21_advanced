@@ -19,4 +19,8 @@ export class App {
   get isNba(): boolean {
     return this.router.url.startsWith('/nba');
   }
+
+  get isLogin():boolean {
+    return this.router.url.startsWith('/login') || this.router.url.startsWith('/signUp');
+  }
 }
