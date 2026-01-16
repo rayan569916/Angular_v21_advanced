@@ -1,4 +1,4 @@
-export interface player  {
+export interface player {
     firstName: string,
     lastName: string,
     playerId: number,
@@ -36,4 +36,15 @@ export interface player_detail {
     ts_pct: number,
     ast_pct: number,
     season: string
-  }
+}
+
+export interface AuthResponse {
+    access_token: string,
+    refresh_token: string,
+    email: string
+}
+
+export interface errorInterface {
+    error: string,
+    message: string
+}

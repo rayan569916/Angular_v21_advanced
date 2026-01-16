@@ -40,6 +40,7 @@ export class SignupComponent implements OnInit{
       return;
     }
     this.service.signupFlaskAPI({email:this.signUpGroup.get("email")?.value,password:this.signUpGroup.get("newPassword")?.value}).subscribe(res=>{
+      console.log(res)
       this.router.navigate(['/dashboard']);
     })
   }
