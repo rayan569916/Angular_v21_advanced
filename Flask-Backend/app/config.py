@@ -1,0 +1,4 @@
+class Config:
+    JWT_SECRET_KEY = "abin-s_e_c_r_e_t-key"
+    JWT_REFRESH_TOKEN_EXPIRES=86400
+    JWT_ACCESS_TOKEN_EXPIRES=900
